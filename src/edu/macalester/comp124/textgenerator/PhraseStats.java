@@ -8,14 +8,11 @@ import java.util.*;
  * @author Shilad Sen
  */
 public class PhraseStats {
-    private String from;
-    private Map<String, Integer> toCounts = new HashMap<String, Integer>();
-    private int total;
-    private Random random = new Random();
+
+    // TODO: add instance variables for part 1
 
     public PhraseStats(String from) {
-        this.from = from;
-        this.total = 0;
+        // TODO: implement constructor for part 1
     }
 
     /**
@@ -23,12 +20,7 @@ public class PhraseStats {
      * @param to
      */
     public void increment(String to) {
-        if (!toCounts.containsKey(to)) {
-            toCounts.put(to, 1);
-        } else {
-            toCounts.put(to, toCounts.get(to) + 1);
-        }
-        total++;
+        // TODO: implement me for part 1
     }
 
     /**
@@ -36,7 +28,8 @@ public class PhraseStats {
      * @param to
      */
     public int getCount(String to) {
-        return toCounts.get(to);
+        // TODO: implement me for part 1
+        return 0;
     }
 
     /**
@@ -44,7 +37,8 @@ public class PhraseStats {
      * @return
      */
     public int getTotalCount() {
-        return total;
+        // TODO: implement me for part 1
+        return 0;
     }
 
     /**
@@ -52,11 +46,12 @@ public class PhraseStats {
      * @return
      */
     public String pickRandomTo() {
-        List<String> keys = new ArrayList<String>(toCounts.keySet());
-        return keys.get(random.nextInt(keys.size()));
+        // TODO: implement me for part 2
+        return "";
     }
 
     public String getFrom() {
-        return from;
+        // TODO: implement me for part 1
+        return "";
     }
 }
