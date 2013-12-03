@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Captures emission probabilities for a particular phrase.
+ * We call the phrase "from" and the words that follow it "to"
  *
  * @author Shilad Sen
  */
@@ -33,7 +34,7 @@ public class PhraseStats {
     }
 
     /**
-     * Get the total count of all occurrences of a particular phrase.
+     * Get the total number of times the "from" phrase appears.
      * @return
      */
     public int getTotalCount() {
@@ -42,7 +43,7 @@ public class PhraseStats {
     }
 
     /**
-     * Select a random outbound phrase based on occurrence probabilities.
+     * Select a random outbound phrase
      * @return
      */
     public String pickRandomTo() {
