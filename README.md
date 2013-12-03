@@ -24,21 +24,37 @@ The irritated group members quickly figured out that this author was a prankster
 
 ### The Algorithm
 
-Given that its output comes eerily close to making sense, and is often even grammatically correct, the algorithm is surprisingly simple. Mark V. Shaney (hereafter “MVS”) is a pun on “markov chain.” MVS reads a body of input text, and makes a transition table that answers the following question: “Given a previous pair of words, what are the choices for the next word?”
+Given that its output comes eerily close to making sense, and is often even grammatically correct, the algorithm is surprisingly simple. Mark V. Shaney (hereafter “MVS”) is a pun on “markov chain.” MVS reads a collection of documents. Each document contains input text, and makes a transition table that answers the following question: “Given a previous pair of words, what are the choices for the next word, and how often do they occur?”
 
-For example, for the input string “Jack be nimble, Jack be quick”, MVS generates the following transition table:
+For example, for the document “Jack be nimble, Jack be quick”, MVS generates the following transition table:
 
 <table>
-  <tr><th align="left"></th> <td>→</td> <td>Jack</td></tr>
-  <tr><th align="left">Jack</th> <td>→</td> <td>be</td></tr>
-  <tr><th align="left">Jack be</th> <td>→</td> <td>nimble,</td> <td>quick</td></tr>
-  <tr><th align="left">be nimble <td>→</td> <td>Jack</td></tr>
-  <tr><th align="left">nimble, Jack</th> <td>→</td> <td>be</td></tr>
+  <tr><th align="left">from</th> <td>→</td> <th>to</th></tr>
+  <tr><td></td> <td>→</td> <td>Jack:1</td></tr>
+  <tr><td>Jack</td> <td>→</td> <td>be:1</td></tr>
+  <tr><td>Jack be</td> <td>→</td> <td>nimble,:1</td> <td>quick:1</td></tr>
+  <tr><td>be nimble,</td> <td>→</td> <td>Jack:1</td></tr>
+  <tr><td>nimble, Jack</td><td>→</td> <td>be:1</td></tr>
 </table>
 
 Note that the table includes entries for _no words preceding_ (i.e. the very beginning of the text), and _one word preceding_ (the first word of the text).
 
 Also note that MVS is case sensitive, and considers anything that is not a space to be part of a “word” — including line breaks and punctuation. This behavior allows it to form sentences and paragraphs.
+
+Continuing our example, presume that MVS next encounters the document "Why does Jack be nimble, and quick?" The table now becomes:
+
+<table>
+  <tr><th align="left">from</th> <td>→</td> <th>to</th></tr>
+  <tr><td></td> <td>→</td> <td>Jack:1</td><td>Why:1</td></tr>
+  <tr><td>Jack</td> <td>→</td> <td>be:1</td></tr>
+  <tr><td>Jack be</td> <td>→</td> <td>nimble,:2</td> <td>quick:1</td></tr>
+  <tr><td>be nimble,</td> <td>→</td> <td>Jack:1</td><td>and:1</td></tr>
+  <tr><td>nimble, Jack</td><td>→</td> <td>be:1</td></tr>
+  <tr><td>Why</td> <td>→</td> <td>does:1</td></tr>
+  <tr><td>Why does</td> <td>→</td> <td>Jack:1</td></tr>
+  <tr><td>does Jack</td> <td>→</td> <td>be:1</td></tr>
+  <tr><td>nimble, and</td> <td>→</td> <td>quick?:1</td></tr>
+</table>
 
 Having built this table of information, MVS  generates new text by looking up the last pair of words output, and randomly selecting the next word from the available options. If there are no options, it stops. For example, with the table above:
 
@@ -63,9 +79,9 @@ Begin by looking over the framework I have given you:
 
 * `PhraseStats.java` keeps track of the count of words that follows a pair of words.
 You will have one PhraseStats instance for every unique pair of words that appears in your corpus of documents.
-For example, one instance of PhraseStats may track all the words following "there is".
-It would know that this phrase appears 129 times in total, and "no" follows the phrase
-25 times, but "interplanetary" follows the phrase only once.
+For example, in the example above you would have one PhraseStats instance for each row in the table (9 instances total).
+Each instance has a single unique "from" that does not change.
+Each instance remembers the counts of all "to"s given the particular "from." For example, the PhraseStats instances assicated with the from "Jack be" will remember that "nimble," occurs twice and "quick" occurs once.
 * `TextGenerator.java` will remember all phrase stats and actually string together a series of words.
 * `TestPhraseStats.java` ensures that your PhraseStats implementation is correct.
 * `TestTextGenerator.java` ensures that your TextGenerator *trains* correctly.
