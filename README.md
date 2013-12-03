@@ -51,11 +51,11 @@ Having built this table of information, MVS  generates new text by looking up th
 
  - Fork this repo, and clone your fork.
  - Import the module into IntelliJ.
- - **Important:** Add all the jars in the `hw8/lib` as libraries (right click -> add as library).
+ - **Important:** Add all the jars in the `hw9/lib` as libraries (right click -> add as library).
  - Download the [database](http://poliwiki.macalester.edu/shilad/wiki-text-generator.zip) and extract it.
 It contains a single `wikAPIdia` directory that contains a `db` directory.
 If you are using a lab computer, **do not put the database in your H: drive** or your program will run ridiculously slowly.
- - **Important:** Place the full wikAPIdia directory underneath hw8 (unless it is on your H: drive), so you have hw8/wikAPIdia/db.
+ - **Important:** Place the full wikAPIdia directory underneath hw8 (unless it is on your H: drive), so you have hw9/wikAPIdia/db.
 
 ### Code structure
 
