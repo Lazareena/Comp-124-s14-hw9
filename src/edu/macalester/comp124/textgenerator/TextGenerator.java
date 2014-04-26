@@ -21,33 +21,20 @@ public class TextGenerator {
      */
     public void train(List<String> texts) {
         for (String text : texts) {
-            String words[] = text.split(" +");
-            if (words.length < 2) {
-                continue;
-            }
-
-            counter.incrementCount("", words[0]);
-            counter.incrementCount(words[0], words[1]);
-            for (int i = 0; i < words.length - 2; i++) {
-                counter.incrementCount(words[i] + " " + words[i + 1], words[i + 2]);
-            }
-            counter.incrementCount(words[words.length-2] + " " + words[words.length - 1], "");
+            // Complete for part 2
         }
     }
 
 
     /**
      * Randomly select an option for words that have been selected following a bigram.
+     * Should return empty string ("") to indicate the text should be ended.
      * @param bigram
      * @return
      */
     public String select(String bigram) {
-        Map<String, Integer> counts = counter.getWordsAfterBigram(bigram);
-        if (counts.isEmpty()) {
-            return "";
-        }
-        List<String> followers = new ArrayList<String>(counts.keySet());
-        return followers.get(random.nextInt(followers.size()));
+        // Complete for part 2
+        return "";
     }
 
     /**
@@ -55,20 +42,8 @@ public class TextGenerator {
      * @return
      */
     public String generate() {
-        String first = select("");
-        String second = select(first);
-        String text = first + " " + second;
-        String[] bigram = new String[] { first, second };
-        while (true) {
-            String next = select(bigram[0] + " " + bigram[1]);
-            if (next.equals("")) {
-                break;
-            }
-            text = text + " " + next;
-            bigram[0] = bigram[1];
-            bigram[1] = next;
-        }
-        return text;
+        // Complete for part 2
+        return null;
     }
 
     /**
@@ -76,7 +51,8 @@ public class TextGenerator {
      * @return
      */
     public BigramCounter getBigramCounter() {
-        return counter;
+        // Complete for part 2
+        return null;
     }
 
     public static void main(String args[]) throws IOException {

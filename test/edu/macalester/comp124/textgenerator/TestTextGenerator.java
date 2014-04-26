@@ -78,4 +78,27 @@ public class TestTextGenerator {
         assertEquals(1, (int)counts.get("say"));
         assertEquals(1, (int)counts.get("is"));
     }
+
+    /**
+     * This ensures that select is correct.
+     */
+    @Test
+    public void testSelect() {
+        TextGenerator tg = new TextGenerator();
+        tg.train(DOCUMENTS);
+        int numDocument = 0;
+        int numBeautiful = 0;
+        for (int i = 0; i < 10000; i++) {
+            String next = tg.select("is a");
+            if (next.equals("document")) {
+                numDocument ++;
+            } else if (next.equals("beautiful")) {
+                numBeautiful++;
+            } else {
+                assert(false);
+            }
+        }
+        assertTrue(numDocument > 4000);
+        assertTrue(numDocument < 6000);
+    }
 }

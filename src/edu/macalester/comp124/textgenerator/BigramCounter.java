@@ -10,7 +10,7 @@ import java.util.Map;
  * @author Shilad Sen
  */
 public class BigramCounter {
-    private Map<String, Map<String, Integer>> counts = new HashMap<String, Map<String, Integer>>();
+    // Add instance variables here for part 1
 
     /**
      * Increments the counts of a word following a bigram.
@@ -27,13 +27,7 @@ public class BigramCounter {
      * @param after Word following the bigram
      */
     public void incrementCount(String bigram, String after) {
-        if (!counts.containsKey(bigram)) {
-            counts.put(bigram, new HashMap<String, Integer>());
-        }
-        if (!counts.get(bigram).containsKey(after)) {
-            counts.get(bigram).put(after, 0);
-        }
-        counts.get(bigram).put(after, counts.get(bigram).get(after) + 1);
+        // Complete for part 1
     }
 
     /**
@@ -54,11 +48,8 @@ public class BigramCounter {
      * @return
      */
     public Map<String, Integer> getWordsAfterBigram(String bigram) {
-        if (counts.containsKey(bigram)) {
-            return counts.get(bigram);
-        } else {
-            return new HashMap<String, Integer>();
-        }
+        // Complete for part 1
+        return null;
     }
 
 }
