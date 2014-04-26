@@ -69,8 +69,6 @@ Having built this table of information, MVS  generates new text by looking up th
  - Import the module into IntelliJ.
  - **Important:** Add all the jars in the `hw9/lib` as libraries (right click -> add as library).
 
-### Code structure
-
 Begin by looking over the framework I have given you:
 
 * `BigramCounter.java` keeps track of the count of words that follows a [bigram](http://en.wikipedia.org/wiki/Bigram, or pair of words that appears consecutively.
@@ -99,7 +97,8 @@ To split text into words, you **must** do the following:
 ```java
 String words[] = text.split(" +");
 ```
-I've given you a `splitIntoWords()` method that you **MUST** use to break up a document into words.
+
+You should skip all documents with less than two words.
 
 If you have successfully implemented the method, all the TestTextGenerator methods should pass.
 However, the edge cases (the first and last few words) are tricky.
@@ -109,13 +108,9 @@ The last few cases carefully check the boundary conditions and are most difficul
 
 ### Part 4: Make up text!
 
-Finally, implement `generate()` and a reasonable `main()` method.
-The main method should simply call train with data from the WikAPIdia wrapper (look for the appropriate method).
-Note that you have access to six languages - all defined by constants in Utils.
-It will then call `generate()` - perhaps several times - and print out the results.
-
-**Important note:** I found some invocations of generate would result in ginormous Strings that made my program run out of memory.
-To work around this, stop generating a string if it gets to long (e.g. if it has more than 1000 words).
+Finally, implement the `generate() method` .
+Select a favorite text from [project Gutenberg](http://www.gutenberg.org/) and change the url in `TextGenerator.main()` to your url.
+Run your program. It should work!
 
 ### Challenges
 
