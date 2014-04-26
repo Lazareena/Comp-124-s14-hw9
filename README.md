@@ -68,22 +68,15 @@ Having built this table of information, MVS  generates new text by looking up th
  - Fork this repo, and clone your fork.
  - Import the module into IntelliJ.
  - **Important:** Add all the jars in the `hw9/lib` as libraries (right click -> add as library).
- - Download the [database](http://poliwiki.macalester.edu/shilad/wiki-text-generator.zip) and extract it.
-It contains a single `wikAPIdia` directory that contains a `db` directory.
-If you are using a lab computer, **do not put the database in your H: drive** or your program will run ridiculously slowly.
- - **Important:** Place the full wikAPIdia directory underneath hw8 (unless it is on your H: drive), so you have hw9/wikAPIdia/db.
 
 ### Code structure
 
 Begin by looking over the framework I have given you:
 
-* `PhraseStats.java` keeps track of the count of words that follows a pair of words.
-You will have one PhraseStats instance for every unique pair of words that appears in your corpus of documents.
-For example, in the example above you would have one PhraseStats instance for each row in the table (9 instances total).
-Each instance has a single unique "from" that does not change.
-Each instance remembers the counts of all "to"s given the particular "from." For example, the PhraseStats instances assicated with the from "Jack be" will remember that "nimble," occurs twice and "quick" occurs once.
-* `TextGenerator.java` will remember all phrase stats and actually string together a series of words.
-* `TestPhraseStats.java` ensures that your PhraseStats implementation is correct.
+* `BigramCounter.java` keeps track of the count of words that follows a [bigram](http://en.wikipedia.org/wiki/Bigram, or pair of words that appears consecutively.
+For example, the BigramCounter remembers that for the bigram "Jack be,"  "nimble" folows it twice and "quick" follows it once.
+* `TextGenerator.java` will update the bigram counter to reflect a collection of texts, and implement the code to use the bigram counter to generate text.
+* `BigramCounter.java` ensures that your PhraseStats implementation is correct.
 * `TestTextGenerator.java` ensures that your TextGenerator *trains* correctly.
 
 ### Part 1: Make PhraseStats count
