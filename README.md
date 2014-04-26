@@ -100,7 +100,7 @@ String words[] = text.split(" +");
 
 You should skip all documents with less than two words.
 
-If you have successfully implemented the method, all the TestTextGenerator methods should pass.
+If you have successfully implemented the method, all the TestTextGenerator methods should pass **except for testSelect()**.
 However, the edge cases (the first and last few words) are tricky.
 The test cases are arranged from easiest to most difficult.
 The last few cases carefully check the boundary conditions and are most difficult.
@@ -108,9 +108,14 @@ The last few cases carefully check the boundary conditions and are most difficul
 
 ### Part 4: Make up text!
 
-Finally, implement the `generate() method` .
+Implement the `select() method`.
+After you've successfully implemented it, testSelect should pass.
+
+Finally, implement the generate() method.
+You should be able to run TextGenerator to see it in actaion!
+
 Select a favorite text from [project Gutenberg](http://www.gutenberg.org/) and change the url in `TextGenerator.main()` to your url.
-Run your program. It should work!
+Run your program. Does it make sense?
 
 ### Challenges
 
