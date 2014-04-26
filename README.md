@@ -79,31 +79,26 @@ For example, the BigramCounter remembers that for the bigram "Jack be,"  "nimble
 * `BigramCounter.java` ensures that your PhraseStats implementation is correct.
 * `TestTextGenerator.java` ensures that your TextGenerator *trains* correctly.
 
-### Part 1: Make PhraseStats count
+### Part 1: Make BigramCounter count
 
-Your first step is to make PhraseStats count correctly. Begin by making sure you understand exactly what it *should* do.
+Your first step is to make BigramCounter count correctly. Begin by making sure you understand exactly what it *should* do.
 
-Once you understand the purpose of PhraseStats, add all the instance variables it will need to do its job and implement the
-constructor and all methods **except** `pickRandomTo()`.
+Once you understand the purpose of BigramCounter, add all the instance variables it will need to do its job and implement its methods.
 
-Once you have successfully finished this step, `testConstruction()` and `testSmall()` will pass in PhraseStatsTest.
+Once you have successfully finished this step, TestBigramCounter should pass.
 
-### Part 2: Make PhraseStats pick randomly
 
-Next, implement `PhraseStats.pickRandomTo()`.
-The method should pick randomly from all available "to" words.
-To be clear, all "to"s should be equally likely (I've listed an extra credit to improve this).
-After you complete this correctly, all three tests in TestPhraseStats should pass.
-
-Carefully consider the algorithm for randomly picking a "to". I expect your algorithm to be *perfectly fair*, and the tests check this.
 
 ### Part 3: Train TextGenerator
 
 Next you will implement `TextGenerator.train()`.
 
-The method takes a list of documents and will build up PhraseStats objects for all the unique word pairs it encounters.
-What datastructure do you need to keep track of this information?
-Add the necessary instance variables and implement `train()` and `getPhraseStats()`.
+The method takes a list of documents and will build up BigramCounter object for all the unique word pairs it encounters.
+To split text into words, you **must** do the following: 
+
+```java
+String words[] = text.split(" +");
+```
 I've given you a `splitIntoWords()` method that you **MUST** use to break up a document into words.
 
 If you have successfully implemented the method, all the TestTextGenerator methods should pass.
