@@ -101,14 +101,14 @@ String words[] = text.split(" +");
 You should skip all documents with less than two words.
 
 If you have successfully implemented the method, all the TestTextGenerator methods should pass **except for testSelect()**.
-However, the edge cases (the first and last few words) are tricky.
 The test cases are arranged from easiest to most difficult.
-The last few cases carefully check the boundary conditions and are most difficult.
+The last few cases carefully check the boundary conditions (first and last words) and are most difficult.
 
 
 ### Part 4: Make up text!
 
-Implement the `select() method`.
+Implement the `TextGenerator.select() method`.
+It should randomly select from among the candidate words following the bigram.
 After you've successfully implemented it, testSelect should pass.
 
 Finally, implement the generate() method.
