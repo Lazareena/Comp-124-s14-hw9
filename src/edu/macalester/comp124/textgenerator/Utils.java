@@ -1,35 +1,49 @@
 package edu.macalester.comp124.textgenerator;
 
-import org.wikapidia.core.lang.Language;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
 
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Utilities for HW7
+ * Utilities for HW9
  * @author Shilad Sen
  */
 public class Utils {
 
-    /**
-     * YOU MUST Update this to point to your path
-     */
-    public static final String PATH_DB = "./wikAPIdia";
+    public static String getText(String url) throws IOException {
+        String[] parts = url.split("/");
+        File file = new File(parts[parts.length - 1]);
+        if (file.isFile()) {
+            return readFileToString(file);
+        }
 
-    /**
-     * Individual languages installed in the database.
-     */
-    public static final Language LANG_WELSH = Language.getByLangCode("cy");
-    public static final Language LANG_SIMPLE = Language.getByLangCode("simple");
-    public static final Language LANG_HINDI = Language.getByLangCode("hi");
-    public static final Language LANG_BOSNIAN = Language.getByLangCode("bs");
-    public static final Language LANG_ICELANDIC = Language.getByLangCode("is");
-    public static final Language LANG_SCOTS = Language.getByLangCode("sco");
+        HttpClient client = new HttpClient();
+        GetMethod method = new GetMethod(url);
+        client.executeMethod(method);
+        String text = method.getResponseBodyAsString();
+        writeStringToFile(text, file);
+        return text;
+    }
 
-    /**
-     * A list of all installed languages.
-     */
-    public static final List<Language> ALL_LANGS = Arrays.asList(
-            LANG_WELSH, LANG_SIMPLE, LANG_HINDI,
-            LANG_BOSNIAN, LANG_ICELANDIC, LANG_SCOTS);
+    private static String readFileToString(File file)  throws IOException {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        InputStream input = new FileInputStream(file);
+        byte[] buffer = new byte[65592];
+        long count = 0;
+        int n = 0;
+        while (-1 != (n = input.read(buffer))) {
+            output.write(buffer, 0, n);
+            count += n;
+        }
+        return output.toString("utf-8");
+    }
+
+    private static void writeStringToFile(String text, File file) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        writer.write(text);
+        writer.close();
+    }
 }

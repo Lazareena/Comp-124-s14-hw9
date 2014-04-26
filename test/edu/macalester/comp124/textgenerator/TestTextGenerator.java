@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
@@ -28,62 +29,53 @@ public class TestTextGenerator {
     public void testEasy() {
         TextGenerator tg = new TextGenerator();
         tg.train(DOCUMENTS);
-        PhraseStats ps1 = tg.getPhraseStats("I is");
-        assertEquals(1, ps1.getTotalCount());
-        assertEquals(1, ps1.getCount("a"));
+        BigramCounter bc = tg.getBigramCounter();
+        Map<String, Integer> counts = bc.getWordsAfterBigram("I is");
+        assertEquals(1, counts.size());
+        assertEquals(1, (int)counts.get("a"));
 
-        PhraseStats ps2 = tg.getPhraseStats("a beautiful");
-        assertEquals(2, ps2.getTotalCount());
-        assertEquals(1, ps2.getCount("car"));
-        assertEquals(1, ps2.getCount("day"));
+        counts = bc.getWordsAfterBigram("a beautiful");
+        assertEquals(2, counts.size());
+        assertEquals(1, (int)counts.get("car"));
+        assertEquals(1, (int)counts.get("day"));
     }
 
     /**
-     * This test ensures you handle punctuation correctly.
+     * This test ensures you handle punctuation correctly and upper / lower case correctly
      */
     @Test
     public void testPunctuation() {
         TextGenerator tg = new TextGenerator();
         tg.train(DOCUMENTS);
-        PhraseStats ps1 = tg.getPhraseStats("document like");
-        assertEquals(1, ps1.getTotalCount());
-        assertEquals(1, ps1.getCount("this,"));
+        BigramCounter bc = tg.getBigramCounter();
+
+        Map<String, Integer> counts = bc.getWordsAfterBigram("document like");
+        assertEquals(1, counts.size());
+        assertEquals(1, (int)counts.get("this,"));
+
+        counts = bc.getWordsAfterBigram("is a");
+        assertEquals(2, counts.size());
+        assertEquals(2, (int)counts.get("document"));
+        assertEquals(2, (int)counts.get("beautiful"));
     }
 
     /**
-     * This test ensures you treat upper and lower case differently.
-     */
-    @Test
-    public void testCase() {
-        TextGenerator tg = new TextGenerator();
-        tg.train(DOCUMENTS);
-        PhraseStats ps1 = tg.getPhraseStats("is a");
-        assertEquals(4, ps1.getTotalCount());
-        assertEquals(2, ps1.getCount("document"));
-    }
-
-    /**
-     * This test ensures you treat starting of a document correctly.
+     * This test ensures you treat starting off a document correctly.
      */
     @Test
     public void testStart() {
         TextGenerator tg = new TextGenerator();
         tg.train(DOCUMENTS);
-        PhraseStats ps1 = tg.getPhraseStats("");
-        assertEquals(5, ps1.getTotalCount());
-        assertEquals(2, ps1.getCount("I"));
-    }
+        BigramCounter bc = tg.getBigramCounter();
 
-    /**
-     * This test ensures you treat starting of a document correctly.
-     */
-    @Test
-    public void testEnd() {
-        TextGenerator tg = new TextGenerator();
-        tg.train(DOCUMENTS);
-        PhraseStats ps1 = tg.getPhraseStats("nice day");
-        assertNull(ps1);
-        PhraseStats ps2 = tg.getPhraseStats("a document");
-        assertNotNull(ps2);
+        Map<String, Integer> counts = bc.getWordsAfterBigram("");
+        assertEquals(4, counts.size());
+        assertEquals(2, (int)counts.get("I"));
+
+
+        counts = bc.getWordsAfterBigram("I");
+        assertEquals(2, counts.size());
+        assertEquals(1, (int)counts.get("say"));
+        assertEquals(1, (int)counts.get("is"));
     }
 }
