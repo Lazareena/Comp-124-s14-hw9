@@ -11,6 +11,7 @@ import java.util.Map;
  */
 public class BigramCounter {
     // Add instance variables here for part 1
+    Map <String, WordsAfterBiagram> bigramMap = new HashMap<String, WordsAfterBiagram>();
 
     /**
      * Increments the counts of a word following a bigram.
@@ -27,6 +28,15 @@ public class BigramCounter {
      * @param after Word following the bigram
      */
     public void incrementCount(String bigram, String after) {
+        if ( bigramMap.get(bigram) == null ) {
+            WordsAfterBiagram newWordsAfterBigram = new WordsAfterBiagram();
+            newWordsAfterBigram.addString(after, 1);
+            bigramMap.put(bigram, newWordsAfterBigram);
+        } else if ( bigramMap.get(bigram) != null && bigramMap.get(bigram).getNum(after) == null) {
+            bigramMap.get(bigram).addString(after, 1);
+        } else if ( bigramMap.get(bigram) != null && bigramMap.get(bigram).getNum(after) != null) {
+            bigramMap.get(bigram).incrementNum(after);
+        }
         // Complete for part 1
     }
 
@@ -49,7 +59,11 @@ public class BigramCounter {
      */
     public Map<String, Integer> getWordsAfterBigram(String bigram) {
         // Complete for part 1
-        return null;
+        if (bigramMap.get(bigram) == null) {
+            WordsAfterBiagram bigramNotFound = new WordsAfterBiagram();
+            return bigramNotFound.returnMap();
+        }
+        return bigramMap.get(bigram).returnMap();
     }
 
 }
